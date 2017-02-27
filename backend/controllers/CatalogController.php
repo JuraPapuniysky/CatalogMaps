@@ -2,9 +2,12 @@
 
 namespace backend\controllers;
 
+use common\models\City;
 use Yii;
 use common\models\Catalog;
 use common\models\CatalogSearch;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -65,6 +68,8 @@ class CatalogController extends Controller
     {
         $model = new Catalog();
 
+        $cities = $this->getCities(1);
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
@@ -106,6 +111,25 @@ class CatalogController extends Controller
         return $this->redirect(['index']);
     }
 
+    public function actionCities()
+    {
+        $out = [];
+
+        if(isset($_POST['depdrop_parents'])){
+            $parents = $_POST['depdrop_parents'];
+            if($parents != null){
+                $country_id = $parents[0];
+                $out = $this->getCities($country_id);
+
+                echo Json::encode(['output' => $out, 'selected' => '']);
+                return ;
+            }
+        }
+
+        echo Json::encode(['output'=>$out, 'selected'=>'']);
+
+    }
+
     /**
      * Finds the Catalog model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -116,6 +140,15 @@ class CatalogController extends Controller
     protected function findModel($id)
     {
         if (($model = Catalog::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+    public function getCities($country_id)
+    {
+        if (($model = City::find()->select(['id', 'name'])->where(['country_id' => $country_id])->asArray()->all()) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

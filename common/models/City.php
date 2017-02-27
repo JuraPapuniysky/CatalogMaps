@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "city".
@@ -18,6 +19,14 @@ use Yii;
  */
 class City extends \yii\db\ActiveRecord
 {
+
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::className(),
+        ];
+    }
+
     /**
      * @inheritdoc
      */
@@ -32,7 +41,7 @@ class City extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'country_id', 'created_at', 'updated_at'], 'required'],
+            [['name', 'country_id'], 'required'],
             [['country_id', 'created_at', 'updated_at'], 'integer'],
             [['name'], 'string', 'max' => 255],
             [['country_id'], 'exist', 'skipOnError' => true, 'targetClass' => Country::className(), 'targetAttribute' => ['country_id' => 'id']],

@@ -2,6 +2,10 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
+use common\models\Country;
+use kartik\depdrop\DepDrop;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Catalog */
@@ -14,15 +18,26 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'country_id')->textInput() ?>
+    <?= $form->field($model, 'country_id')->dropDownList(
+        ArrayHelper::map(Country::find()->all(), 'id', 'name'),
+        ['id' => 'name']
+    )
+    ?>
 
-    <?= $form->field($model, 'city_id')->textInput() ?>
+    <?php
+
+    echo $form->field($model, 'city_id')->widget(DepDrop::className(),[
+        'options' => ['id' => 'city_id'],
+        'pluginOptions' => [
+            'depends' => ['name'],
+            'placeholder' => 'Select...',
+            'url' => Url::to(['catalog/cities'])
+        ]
+    ]) ?>
 
     <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'created_at')->textInput() ?>
 
-    <?= $form->field($model, 'updated_at')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

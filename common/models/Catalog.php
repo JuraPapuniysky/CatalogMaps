@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "catalog".
@@ -20,6 +21,14 @@ use Yii;
  */
 class Catalog extends \yii\db\ActiveRecord
 {
+
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::className(),
+        ];
+    }
+
     /**
      * @inheritdoc
      */
@@ -34,7 +43,7 @@ class Catalog extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'country_id', 'city_id', 'address', 'created_at', 'updated_at'], 'required'],
+            [['name', 'country_id', 'city_id', 'address'], 'required'],
             [['country_id', 'city_id', 'created_at', 'updated_at'], 'integer'],
             [['name', 'address'], 'string', 'max' => 255],
             [['name'], 'unique'],
