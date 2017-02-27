@@ -20,7 +20,10 @@ use yii\helpers\Url;
 
     <?= $form->field($model, 'country_id')->dropDownList(
         ArrayHelper::map(Country::find()->all(), 'id', 'name'),
-        ['id' => 'name']
+        [
+            'id' => 'name',
+            'prompt' => 'Выберите страну...'
+        ]
     )
     ?>
 
@@ -35,7 +38,10 @@ use yii\helpers\Url;
         ]
     ]) ?>
 
-    <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'address')->widget(\yii\widgets\MaskedInput::className(),[
+        'name' => 'address',
+        'mask' => '*{1,10}-*{1,50}'
+    ]) ?>
 
 
 

@@ -6,7 +6,6 @@ use common\models\City;
 use Yii;
 use common\models\Catalog;
 use common\models\CatalogSearch;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -111,16 +110,17 @@ class CatalogController extends Controller
         return $this->redirect(['index']);
     }
 
+    /**
+     * for dropdown in form.
+     */
     public function actionCities()
     {
         $out = [];
-
         if(isset($_POST['depdrop_parents'])){
             $parents = $_POST['depdrop_parents'];
             if($parents != null){
                 $country_id = $parents[0];
                 $out = $this->getCities($country_id);
-
                 echo Json::encode(['output' => $out, 'selected' => '']);
                 return ;
             }
