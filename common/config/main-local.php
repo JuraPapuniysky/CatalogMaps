@@ -16,10 +16,11 @@ return [
             // for the mailer to send real emails.
             'useFileTransport' => true,
         ],
-        'google-maps-response' => [
-            'class' => '',
+        'googleMapsResponse' => [
+            'class' => 'common\components\GoogleMapsResponse',
             'url' => 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=',
-            'key' => '&key=AIzaSyDa4NapRz0RebA1jZhCXVYXUdRmQYr0cP8',
+            'key' => 'key=AIzaSyDa4NapRz0RebA1jZhCXVYXUdRmQYr0cP8',
+
         ]
     ],
 ];

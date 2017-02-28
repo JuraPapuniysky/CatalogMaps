@@ -3,7 +3,7 @@
 namespace common\models;
 
 use Yii;
-
+use yii\behaviors\TimestampBehavior;
 /**
  * This is the model class for table "coordinate".
  *
@@ -22,6 +22,13 @@ use Yii;
  */
 class Coordinate extends \yii\db\ActiveRecord
 {
+
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::className(),
+        ];
+    }
     /**
      * @inheritdoc
      */
@@ -36,7 +43,7 @@ class Coordinate extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['catalog_id', 'created_at', 'updated_at', 'lat', 'lng'], 'required'],
+            [['catalog_id', 'lat', 'lng'], 'required'],
             [['catalog_id', 'created_at', 'updated_at'], 'integer'],
             [['lat', 'lng'], 'number'],
             [['name', 'place_id', 'reference', 'formated_address'], 'string', 'max' => 255],
@@ -69,5 +76,18 @@ class Coordinate extends \yii\db\ActiveRecord
     public function getCatalog()
     {
         return $this->hasOne(Catalog::className(), ['id' => 'catalog_id']);
+    }
+
+    public function setParams($responce, Catalog $catalog)
+    {
+        $this->catalog_id = $catalog->id;
+        $results = $responce['results'];
+        $params = $results[0];
+        $this->lat = $params['geometry']['location']['lat'];
+        $this->lng = $params['geometry']['location']['lng'];
+        $this->formated_address = $params['formatted_address'];
+        $this->name = $params['name'];
+        $this->reference = $params['reference'];
+        $this->place_id = $params['place_id'];
     }
 }

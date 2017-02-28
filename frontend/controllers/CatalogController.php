@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use common\models\City;
+use common\models\Coordinate;
 use Yii;
 use common\models\Catalog;
 use common\models\CatalogSearch;
@@ -67,10 +68,16 @@ class CatalogController extends Controller
     {
         $model = new Catalog();
 
-        $cities = $this->getCities(1);
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            $mapsResponse = Yii::$app->googleMapsResponse;
+            $country = $model->getCountry()->one();
+            $city = $model->getCity()->one();
+            $response = $mapsResponse->response($model->address, $country->name, $city->name);
+            $coorditate = new Coordinate();
+            $coorditate->setParams($response, $model);
+            if($coorditate->save()){
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         } else {
             return $this->render('create', [
                 'model' => $model,

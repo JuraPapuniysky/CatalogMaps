@@ -20,9 +20,15 @@ class GoogleMapsResponse extends Component
 
 
 
-    public function response($address)
+    public function response($address, $country, $city)
     {
-        $query = $this->url.$address.$this->key;
-        return Json::decode(file_get_contents($query));
+
+        $query = $this->url.urlencode("$address $city $country")."&$this->key";
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $query);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $data = curl_exec($ch);
+        curl_close($ch);
+        return Json::decode($data);
     }
 }
