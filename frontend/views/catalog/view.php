@@ -5,6 +5,7 @@ use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Catalog */
+/* @var  $coordinate \common\models\Coordinate */
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Catalogs', 'url' => ['index']];
@@ -36,6 +37,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'created_at',
             'updated_at',
         ],
+    ]) ?>
+
+    <?= \common\widgets\GoogleMap::widget([
+        'lat' => $coordinate->lat,
+        'lng' => $coordinate->lng,
+        'title' => $model->name,
     ]) ?>
 
 </div>

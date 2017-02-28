@@ -54,8 +54,11 @@ class CatalogController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        $coordinate = $model->getCoordinate()->one();
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'coordinate' => $coordinate,
         ]);
     }
 
@@ -113,6 +116,7 @@ class CatalogController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
+
 
         return $this->redirect(['index']);
     }

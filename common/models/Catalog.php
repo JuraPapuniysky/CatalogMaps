@@ -84,8 +84,16 @@ class Catalog extends \yii\db\ActiveRecord
         return $this->hasOne(Country::className(), ['id' => 'country_id']);
     }
 
+
     public function getCoordinate()
     {
         return $this->hasOne(Coordinate::className(), ['catalog_id' => 'id']);
+    }
+
+
+    public function beforeDelete()
+    {
+        $this->getCoordinate()->one()->delete();
+        return parent::beforeDelete();
     }
 }
