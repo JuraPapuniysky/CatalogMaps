@@ -1,0 +1,31 @@
+{
+   "html_attributions" : [],
+   "results" : [
+      {
+         "formatted_address" : "Petropavlivs'ka Street, 5, Sumy, Sums'ka oblast, Ukraine",
+         "geometry" : {
+            "location" : {
+               "lat" : 50.9067403,
+               "lng" : 34.79706220000001
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 50.9080857302915,
+                  "lng" : 34.7984186802915
+               },
+               "southwest" : {
+                  "lat" : 50.9053877697085,
+                  "lng" : 34.79572071970851
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/geocode-71.png",
+         "id" : "98ff4a4e13492d8dafda69a0eb3d181d6bb94b2c",
+         "name" : "Petropavlivs'ka Street, 5",
+         "place_id" : "EmfQstGD0LvQuNGG0Y8g0J_QtdGC0YDQvtC_0LDQstC70ZbQstGB0YzQutCwLCA1LCDQodGD0LzQuCwg0KHRg9C80YHRjNC60LAg0L7QsdC70LDRgdGC0YwsINCj0LrRgNCw0ZfQvdCw",
+         "reference" : "CqQBlgAAAC8GqXMWeJ8D838H8q2-b6cAUb8sQ8BtvrejPjb4N3qNG4ylWu-d25imqA_jxgJp-0kn9ONZT6grlwFGxQNgXaPQumllNEqLxOEAbG9-4ijESVlOZfzQhTYyvtQL-Ca1q4seZ8gmLXlEPbR3geEMrj6ZpDw-VM__1gi6TucUzYQ_TqJWNwD9PGODyuozrVngSv6AkAX7lq7n5-9r2W64B4MSEEyw0tr9PnnnhPN0OtKzAPcaFDdBLr5L4t-gh9UZMpXBMfcWnHUO",
+         "types" : [ "street_address" ]
+      }
+   ],
+   "status" : "OK"
+}

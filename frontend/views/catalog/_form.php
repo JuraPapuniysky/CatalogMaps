@@ -40,7 +40,11 @@ use yii\helpers\Url;
 
     <?= $form->field($model, 'address')->widget(\yii\widgets\MaskedInput::className(),[
         'name' => 'address',
-        'mask' => '*{1,10}-*{1,50}'
+        'mask' => '*{1,50} *{1,10}',
+        'options' => [
+            'placeholder' => 'Улица Дом',
+        ]
+
     ]) ?>
 
 
