@@ -59,7 +59,7 @@ class City extends \yii\db\ActiveRecord
             'country_id' => 'Country ID',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
-            'country' => 'Country',
+            'country.name' => 'Country',
         ];
     }
 
