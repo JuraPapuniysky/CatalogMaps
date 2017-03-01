@@ -30,8 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'country',
                 'value' => 'country.name'
             ],
-            'created_at',
-            'updated_at',
+
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
