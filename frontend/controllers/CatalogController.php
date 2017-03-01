@@ -55,7 +55,9 @@ class CatalogController extends Controller
     public function actionView($id)
     {
         $model = $this->findModel($id);
-        $coordinate = $model->getCoordinate()->one();
+        if(($coordinate = $model->getCoordinate()->one()) === null){
+            $coordinate = false;
+        }
         return $this->render('view', [
             'model' => $model,
             'coordinate' => $coordinate,

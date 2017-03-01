@@ -42,11 +42,14 @@ $this->params['breadcrumbs'][] = $this->title;
             ]) ?>
         </div>
         <div class="col-md-6">
-            <?= \common\widgets\GoogleMap::widget([
-                'lat' => $coordinate->lat,
-                'lng' => $coordinate->lng,
-                'title' => $model->name,
-            ]) ?>
+            <?php
+            if($coordinate != false) {
+                echo \common\widgets\GoogleMap::widget([
+                    'lat' => $coordinate->lat,
+                    'lng' => $coordinate->lng,
+                    'title' => $model->name,
+                ]);
+            }?>
         </div>
     </div>
 </div>
