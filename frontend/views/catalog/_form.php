@@ -33,14 +33,14 @@ use yii\helpers\Url;
         'options' => ['id' => 'city_id'],
         'pluginOptions' => [
             'depends' => ['name'],
-            'placeholder' => 'Select...',
+            'placeholder' => 'Выберите город...',
             'url' => Url::to(['catalog/cities'])
         ]
     ]) ?>
 
     <?= $form->field($model, 'address')->widget(\yii\widgets\MaskedInput::className(),[
         'name' => 'address',
-        'mask' => '*{1,50} *{1,50},*{1,10}',
+        'mask' => '[*{1,50} *{1,50}],*{1,10}',
         'options' => [
             'placeholder' => 'Улица, Дом',
         ]
