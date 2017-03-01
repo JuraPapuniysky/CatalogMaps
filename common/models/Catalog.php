@@ -59,10 +59,10 @@ class Catalog extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'name' => 'Найменование',
             'country_id' => 'Country ID',
             'city_id' => 'City ID',
-            'address' => 'Address',
+            'address' => 'Адрес',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];

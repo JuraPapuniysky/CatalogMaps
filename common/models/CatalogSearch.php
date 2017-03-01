@@ -5,13 +5,17 @@ namespace common\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\Catalog;
+
 
 /**
  * CatalogSearch represents the model behind the search form about `common\models\Catalog`.
  */
 class CatalogSearch extends Catalog
 {
+
+    public $city;
+    public $country;
+
     /**
      * @inheritdoc
      */
@@ -19,7 +23,7 @@ class CatalogSearch extends Catalog
     {
         return [
             [['id', 'country_id', 'city_id', 'created_at', 'updated_at'], 'integer'],
-            [['name', 'address'], 'safe'],
+            [['name', 'address', 'city', 'country'], 'safe'],
         ];
     }
 
@@ -44,16 +48,23 @@ class CatalogSearch extends Catalog
         $query = Catalog::find();
 
         // add conditions that should always apply here
-
+        $query->joinWith(['city', 'country']);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
 
-        $this->load($params);
+        $dataProvider->sort->attributes['city'] = [
 
-        if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
+            'asc' => ['city.name' => SORT_ASC],
+            'desc' => ['city.name' => SORT_DESC],
+        ];
+
+        $dataProvider->sort->attributes['country'] = [
+            'asc' => ['country.name' => SORT_ASC],
+            'desc' => ['country.name' => SORT_DESC],
+        ];
+
+        if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
 
@@ -67,6 +78,8 @@ class CatalogSearch extends Catalog
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'city.name', $this->city])
+            ->andFilterWhere(['like', 'country.name', $this->country])
             ->andFilterWhere(['like', 'address', $this->address]);
 
         return $dataProvider;
