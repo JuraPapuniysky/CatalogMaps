@@ -18,6 +18,7 @@ use yii\behaviors\TimestampBehavior;
  *
  * @property City $city
  * @property Country $country
+ * @property Coordinate $coordinate
  */
 class Catalog extends \yii\db\ActiveRecord
 {
@@ -95,7 +96,7 @@ class Catalog extends \yii\db\ActiveRecord
 
     public function beforeDelete()
     {
-        $this->getCoordinate()->one()->delete();
+        $this->coordinate->delete();
         return parent::beforeDelete();
     }
 }

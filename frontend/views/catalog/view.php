@@ -26,23 +26,27 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'name',
-            'country.name',
-            'city.name',
-            'address',
-            'created_at',
-            'updated_at',
-        ],
-    ]) ?>
-
-    <?= \common\widgets\GoogleMap::widget([
-        'lat' => $coordinate->lat,
-        'lng' => $coordinate->lng,
-        'title' => $model->name,
-    ]) ?>
-
+    <div class="row">
+        <div class="col-md-5">
+            <?= DetailView::widget([
+                'model' => $model,
+                'attributes' => [
+                    'id',
+                    'name',
+                    'country.name',
+                    'city.name',
+                    'address',
+                    'created_at',
+                    'updated_at',
+                ],
+            ]) ?>
+        </div>
+        <div class="col-md-6">
+            <?= \common\widgets\GoogleMap::widget([
+                'lat' => $coordinate->lat,
+                'lng' => $coordinate->lng,
+                'title' => $model->name,
+            ]) ?>
+        </div>
+    </div>
 </div>

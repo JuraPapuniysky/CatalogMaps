@@ -73,9 +73,7 @@ class CatalogController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $mapsResponse = Yii::$app->googleMapsResponse;
-            $country = $model->getCountry()->one();
-            $city = $model->getCity()->one();
-            $response = $mapsResponse->response($model->address, $country->name, $city->name);
+            $response = $mapsResponse->response($model->address, $model->country->name, $model->city->name);
             $coorditate = new Coordinate();
             $coorditate->setParams($response, $model);
             if($coorditate->save()){
@@ -136,9 +134,7 @@ class CatalogController extends Controller
                 return ;
             }
         }
-
         echo Json::encode(['output'=>$out, 'selected'=>'']);
-
     }
 
     /**
