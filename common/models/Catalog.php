@@ -62,14 +62,14 @@ class Catalog extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Найменование',
+            'name' => 'Name',
             'country_id' => 'Country ID',
             'city_id' => 'City ID',
-            'address' => 'Адрес',
+            'address' => 'Address',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
-            'country.name' => 'Страна',
-            'city.name' => 'Город',
+            'country.name' => 'Country',
+            'city.name' => 'City',
         ];
     }
 
