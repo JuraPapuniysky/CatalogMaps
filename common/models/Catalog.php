@@ -65,6 +65,8 @@ class Catalog extends \yii\db\ActiveRecord
             'address' => 'Адрес',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
+            'country.name' => 'Страна',
+            'city.name' => 'Город',
         ];
     }
 

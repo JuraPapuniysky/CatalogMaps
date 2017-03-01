@@ -31,8 +31,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'name',
-            'country_id',
-            'city_id',
+            'country.name',
+            'city.name',
             'address',
             'created_at',
             'updated_at',
