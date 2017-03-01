@@ -11,15 +11,20 @@ namespace common\components;
 
 use yii\base\Component;
 use yii\helpers\Json;
-
+/**
+ * This is the class for component GoogleMapsResponse
+ */
 class GoogleMapsResponse extends Component
 {
     public $url;
     public $key;
 
-
-
-
+    /**
+     * @param $address from model Catalog property address
+     * @param $country from model Catalog property country->name
+     * @param $city from model Catalog property city->name
+     * @return response from Google Maps API from json to array format
+     */
     public function response($address, $country, $city)
     {
 

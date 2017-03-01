@@ -78,6 +78,10 @@ class Coordinate extends \yii\db\ActiveRecord
         return $this->hasOne(Catalog::className(), ['id' => 'catalog_id']);
     }
 
+    /**
+     * @param Array $responce from GoogleMapsResponse component
+     * @param Catalog $catalog
+     */
     public function setParams($responce, Catalog $catalog)
     {
         $this->catalog_id = $catalog->id;

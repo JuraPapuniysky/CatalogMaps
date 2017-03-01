@@ -23,6 +23,8 @@ use yii\behaviors\TimestampBehavior;
 class Catalog extends \yii\db\ActiveRecord
 {
 
+    public $coordiante;
+
     public function behaviors()
     {
         return [
@@ -96,7 +98,12 @@ class Catalog extends \yii\db\ActiveRecord
 
     public function beforeDelete()
     {
-        $this->coordinate->delete();
+        try{
+            $this->coordinate->delete();
+        }catch (\Error $e){
+            return parent::beforeDelete();
+        }
+
         return parent::beforeDelete();
     }
 }

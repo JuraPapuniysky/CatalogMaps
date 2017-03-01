@@ -63,7 +63,7 @@ class CatalogController extends Controller
     }
 
     /**
-     * Creates a new Catalog model.
+     * Creates a new Catalog and Coordinate model
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
@@ -74,9 +74,9 @@ class CatalogController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $mapsResponse = Yii::$app->googleMapsResponse;
             $response = $mapsResponse->response($model->address, $model->country->name, $model->city->name);
-            $coorditate = new Coordinate();
-            $coorditate->setParams($response, $model);
-            if($coorditate->save()){
+            $coordinate = new Coordinate();
+            $coordinate->setParams($response, $model);
+            if($coordinate->save()){
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
@@ -97,7 +97,13 @@ class CatalogController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            $mapsResponse = Yii::$app->googleMapsResponse;
+            $response = $mapsResponse->response($model->address, $model->country->name, $model->city->name);
+            $coordinate = Coordinate::findOne(['catalog_id' => $id]);
+            $coordinate->setParams($response, $model);
+            if($coordinate->save()){
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -106,7 +112,7 @@ class CatalogController extends Controller
     }
 
     /**
-     * Deletes an existing Catalog model.
+     * Deletes an existing Catalog and Coordinate model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -114,8 +120,6 @@ class CatalogController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-
-
         return $this->redirect(['index']);
     }
 
@@ -153,6 +157,12 @@ class CatalogController extends Controller
         }
     }
 
+    /**
+     * Finds the City models based on its country_id value
+     * @param integer $country_id
+     * @return array|\yii\db\ActiveRecord[]
+     * @throws NotFoundHttpException
+     */
     public function getCities($country_id)
     {
         if (($model = City::find()->select(['id', 'name'])->where(['country_id' => $country_id])->asArray()->all()) !== null) {
